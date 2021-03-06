@@ -1,0 +1,48 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build Protocol",
+            "command": "nim",
+            "args": [
+                "c",
+                "--outdir:bin/chatApplication",
+                "src/protocol.nim"
+            ],
+            "options": {
+                "cwd": "${workspaceRoot}"
+            },
+            "type": "shell"
+        },
+        {
+            "label": "Build ans Run Client",
+            "command": "nim",
+            "args": [
+                "c",
+                "-r",
+                "--outdir:bin/chatApplication",
+                "--threads:on",
+                "src/client.nim",
+                "localhost"
+            ],
+            "options": {
+                "cwd": "${workspaceRoot}"
+            },
+            "type": "shell"
+        },
+        {
+            "label": "Build",
+            "dependsOn": [
+                "Build Protocol",
+                "Build ans Run Client"
+            ],
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ]
+}
